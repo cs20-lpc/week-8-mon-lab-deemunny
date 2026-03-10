@@ -29,7 +29,8 @@ class Stack {
         virtual bool isEmpty() const = 0;
 
         // return the element at the top of the stack
-        virtual T peek() const = 0;
+        virtual const T& peek() const = 0;
+        virtual T& peek() = 0;
 
         // remove the top element from the stack
         virtual void pop() = 0;
@@ -39,6 +40,8 @@ class Stack {
 
         // rearranges the elements in the stack according to the argument
         virtual void rotate(Direction) = 0;
+
+        virtual void invert() = 0;
 };
 
 #endif

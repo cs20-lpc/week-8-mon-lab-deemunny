@@ -46,7 +46,8 @@ class ArrayStack : public Stack<T> {
         bool isFull() const;
 
         // return the element at the top of the stack
-        virtual T peek() const override;
+        virtual const T& peek() const override;
+        virtual T& peek() override; // peek that allows changing content
 
         // remove the top element from the stack
         virtual void pop() override;
@@ -56,6 +57,8 @@ class ArrayStack : public Stack<T> {
 
         // rearranges the elements in the stack according to the argument
         virtual void rotate(typename Stack<T>::Direction) override;
+
+        virtual void invert() override;
 
         // overloaded stream insertion operator to make printing easier
         template <typename U>
