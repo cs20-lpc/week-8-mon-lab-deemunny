@@ -1,4 +1,4 @@
-#include "ArrayStack.hpp"  // comment out before compiling
+// #include "ArrayStack.hpp"  // comment out before compiling
 
 template <typename T>
 ArrayStack<T>::ArrayStack(int i) : maxSize(i), buffer(new T[i]{}) {}
@@ -25,6 +25,8 @@ ArrayStack<T>::~ArrayStack() {
 template <typename T>
 void ArrayStack<T>::clear() {
     delete[] buffer;
+    buffer = nullptr;
+    this->length = 0;
 }
 
 template <typename T>
@@ -61,20 +63,20 @@ bool ArrayStack<T>::isFull() const {
 
 template <typename T>
 const T& ArrayStack<T>::peek() const {
-    if isEmpty() throw string("Cannot peek. Stack is empty");
+    if (isEmpty()) throw string("Cannot peek. Stack is empty");
     return buffer[this->length-1];
 }
 
 // peek that allows changing content
 template <typename T>
 T& ArrayStack<T>::peek() {
-    if isEmpty() throw string("Cannot peek. Stack is empty");
+    if (isEmpty()) throw string("Cannot peek. Stack is empty");
     return buffer[this->length-1];
 }
 
 template <typename T>
 void ArrayStack<T>::pop() {
-    if isEmpty() throw string("Cannot pop. Stack is empty");
+    if (isEmpty()) throw string("Cannot pop. Stack is empty");
     cout << "Removing item " << peek() << endl;
     --this->length;
 }
@@ -84,7 +86,7 @@ void ArrayStack<T>::push(const T& elem) {
     // copy and increase buffer if too large first
     if (this->length == maxSize) {
         int newSize = maxSize * 2 + 1; // + 1 for if maxSize is 0 for some reason
-        T* newBuffer = new T[newSize]
+        T* newBuffer = new T[newSize];
         for (int i = 0; i < this->length; ++i) {
             newBuffer[i] = buffer[i];
         }
@@ -101,7 +103,7 @@ void ArrayStack<T>::rotate(typename Stack<T>::Direction dir) {
     if (this->length <= 1) throw string("Nothing to rotate. Stack too small.");
     if (dir == this->RIGHT) {  // moves top to bottom
         T topVal = buffer[this->length - 1];
-        for (int i = length - 1; i > 0; --i) {
+        for (int i = this->length - 1; i > 0; --i) {
             buffer[i] = buffer[i-1];
         }
         buffer[0] = topVal;
@@ -117,19 +119,12 @@ void ArrayStack<T>::rotate(typename Stack<T>::Direction dir) {
 }
 
 template <typename T>
-void ArrayStack<T>::invert() {
-    if isEmpty() return;
+void ArrayStack<T>::print() {
+    if (isEmpty()) return;
     T temp = peek();
     pop();
-    invert();
-    if isEmpty() push(temp);
-    else {
-        T newTop = peek();
-        pop();
-        invert();
-        push(top);
-        push(temp);
-    }
+    print();
+    push(temp);
 }
 
 
@@ -147,3 +142,5 @@ ostream& operator<<(ostream& outStream, const ArrayStack<T>& myObj) {
 
     return outStream;
 }
+
+

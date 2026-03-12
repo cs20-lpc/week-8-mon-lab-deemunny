@@ -58,7 +58,9 @@ class ArrayStack : public Stack<T> {
         // rearranges the elements in the stack according to the argument
         virtual void rotate(typename Stack<T>::Direction) override;
 
-        virtual void invert() override;
+        virtual void print() override;
+
+        // void testRotate(ArrayStack<T>&);
 
         // overloaded stream insertion operator to make printing easier
         template <typename U>

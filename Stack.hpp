@@ -41,7 +41,7 @@ class Stack {
         // rearranges the elements in the stack according to the argument
         virtual void rotate(Direction) = 0;
 
-        virtual void invert() = 0;
+        virtual void print() = 0;
 };
 
 #endif
